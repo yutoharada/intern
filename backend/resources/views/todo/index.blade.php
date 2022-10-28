@@ -3,7 +3,7 @@
 <div class="row">
     <div class="col-10 m-auto">
         <div class="card">
-            <div class="card-header "><p class="h5">Home</p></div>
+            <div class="card-header "><p class="h5">{{ Auth::user()->name }}のTodo一覧</p></div>
 			<div class="card-body">
 				<table class="table">
                     <thead>
