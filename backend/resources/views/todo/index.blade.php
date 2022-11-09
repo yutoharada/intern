@@ -65,8 +65,8 @@
                                 <td class="child{{$todo->id}}"><a class="btn btn-success" href="{{ route('todo.edit', ['id'=>$todo->id]) }}" id="edit-button-{{$todo->id}}">編集</a></td>
                                 <td>
                                     <form action="{{ route('todo.destroy', ['id'=>$todo->id]) }}" method="POST">
-                                      @csrf
-                                      <button class="btn btn-danger" type="submit">削除</button>
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">削除</button>
                                     </form>
                                 </td>
                             </tr>

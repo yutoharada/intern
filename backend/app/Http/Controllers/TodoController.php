@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Todo;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -14,7 +15,9 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        $todos = Todo::all();
+        $id = Auth::id();
+        // dd($id);
+        $todos = Todo::whereUser_id($id)->get();
         return view('todo.index',['todos' => $todos]);
     }
 
@@ -36,12 +39,16 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $id = Auth::id();
+        // dd($id);
         $todo = new Todo();
         $todo->title = $request->title;
         // $form = $request -> all();
         // unset($form['_token']);
         // $todo->fill($form)->save();
         $todo->status = 0;
+        $todo->user_id = $id;
+        // $todo = $request->all();
         $todo->save();
 
         return redirect('todos')->with(
