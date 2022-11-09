@@ -39,8 +39,28 @@
                                 <td class="child{{$todo->id}}">{{ $todo->id }}</td>
                                 <td class="child{{$todo->id}}" id="child-title-{{$todo->id}}">{{ $todo->title}}</td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>
+                                    <?php if ($todo->status == 0) : ?>
+                                        <p>未完了</p>
+                                    <?php else : ?>
+                                        <p>完了</p>
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <?php if ($todo->status == 0) : ?>
+                                        <form action="{{ route('todo.completion', ['id'=>$todo->id]) }}" method="POST">
+                                            @method("PUT")
+                                            @csrf
+                                            <button class="btn btn-primary" type="submit">完了</button>
+                                        </form>
+                                    <?php else : ?>
+                                        <form action="{{ route('todo.completion', ['id'=>$todo->id]) }}" method="POST">
+                                            @method("PUT")
+                                            @csrf
+                                            <button class="btn btn-danger" type="submit">未完了</button>
+                                        </form>
+                                    <?php endif; ?>
+                                </td>
                                 <td></td>
                                 <td class="child{{$todo->id}}"><a class="btn btn-success" href="{{ route('todo.edit', ['id'=>$todo->id]) }}" id="edit-button-{{$todo->id}}">編集</a></td>
                                 <td>

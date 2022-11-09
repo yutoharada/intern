@@ -37,10 +37,12 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $todo = new Todo();
-        $form = $request -> all();
-        unset($form['_token']);
-
-        $todo->fill($form)->save();
+        $todo->title = $request->title;
+        // $form = $request -> all();
+        // unset($form['_token']);
+        // $todo->fill($form)->save();
+        $todo->status = 0;
+        $todo->save();
 
         return redirect('todos')->with(
             'success',
@@ -66,6 +68,20 @@ class TodoController extends Controller
     {
         $todo = Todo::find($request->id);
         $todo->delete();
+        return redirect()->route('todo.index');
+    }
+
+    //完了ボタンを押した時の処理
+    public function completion(Request $request)
+    {
+        // dd($request->status);
+        $todo = Todo::find($request->id);
+        if ($todo->status == 0) {
+            $todo->status = 1;
+        } else {
+            $todo->status = 0;
+        }
+        $todo->save();
         return redirect()->route('todo.index');
     }
 
