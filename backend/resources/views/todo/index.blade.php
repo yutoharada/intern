@@ -12,9 +12,9 @@
                                 <a href="/todos/create" class="btn btn-success">作成</a>
                             </th>
                             <th>
-                                <form method="GET">
-                                    <button type="submit" name="sort" value="asc" class="btn btn-success">OLD</button>
-                                    <button type="submit" name="sort" value="desc" class="btn btn-primary">NEW</button>
+                                <form action="{{route('todo.index')}}"method="GET">
+                                    <button type="submit" name="asc" value="asc" class="btn btn-success">OLD</button>
+                                    <button type="submit" name="desc" value="desc" class="btn btn-primary">NEW</button>
                                 </form>
                             </th>
                         </tr>

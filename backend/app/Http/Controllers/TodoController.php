@@ -18,6 +18,11 @@ class TodoController extends Controller
         $id = Auth::id();
         // dd($id);
         $todos = Todo::whereUser_id($id)->get();
+        if ($request->has('asc')) {
+            $todos = Todo::oldest()->get();
+        } else if ($request->has('desc')){
+            $todos = Todo::latest()->get();
+        }
         return view('todo.index',['todos' => $todos]);
     }
 
@@ -57,12 +62,14 @@ class TodoController extends Controller
         );
     }
 
+    //編集ボタン
     public function edit(Request $request)
     {
         $todo = Todo::find($request->id);
         return view('todo.edit',compact('todo'));
     }
 
+    //更新ボタン
     public function update(Request $request)
     {
         $todo = Todo::find($request->id);
@@ -71,6 +78,7 @@ class TodoController extends Controller
         return redirect('/');
     }
 
+    //削除ボタン
     public function destroy(Request $request)
     {
         $todo = Todo::find($request->id);
@@ -78,7 +86,7 @@ class TodoController extends Controller
         return redirect()->route('todo.index');
     }
 
-    //完了ボタンを押した時の処理
+    //完了ボタン
     public function completion(Request $request)
     {
         // dd($request->status);
@@ -92,4 +100,14 @@ class TodoController extends Controller
         return redirect()->route('todo.index');
     }
 
+    //OLDかNEWのボタン
+    // public function line(Request $request)
+    // {
+    //     if ($request->has('asc')) {
+    //         $todo = Todo::orderBy('updated_at', 'asc')->get();
+    //     } else if ($request->has('desc')){
+    //         $todo = Todo::orderBy('updated_at', 'desc')->get();
+    //     }
+    //     return redirect()->route('todo.index');
+    // }
 }
