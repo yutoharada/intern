@@ -66,6 +66,8 @@ class TodoController extends Controller
     public function edit(Request $request)
     {
         $todo = Todo::find($request->id);
+        $count = 0;
+        // int substr_count { string $todo , string '【Edited】'}
         return view('todo.edit',compact('todo'));
     }
 
@@ -74,6 +76,7 @@ class TodoController extends Controller
     {
         $todo = Todo::find($request->id);
         $todo->title = $request->title;
+        $todo->title .= '【Edited】';
         $todo->save();
         return redirect('/');
     }
